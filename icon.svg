@@ -1,14 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<title>東京鐵塔與秋景</title>
 <style>
-:root{--cp-bg:#f7f4ef;--cp-text:#242424;--cp-accent:#b11f4b;--cp-warning:#f59e0b;--cp-border:#dedede}
+:root{--cp-bg:#f7f4ef;--cp-text:#242424;--cp-accent:#b11f4b;--cp-warning:#f59e0b;--cp-border:#dedede;--cp-text-muted:#5c5c5c}
 </style>
+<defs>
+ <radialGradient id="autumn-light" cx=".62" cy=".3" r=".7"><stop stop-color="var(--cp-warning)" stop-opacity=".15"/><stop offset="1" stop-color="var(--cp-bg)" stop-opacity="0"/></radialGradient>
+ <g id="ginkgo"><path d="M0 17Q-18 5-21-8Q-12-22-1-16Q9-24 22-10Q20 4 0 17Z" fill="var(--cp-warning)"/><path d="M0 17L-10-9M0 17L2-13M0 17L14-8" fill="none" stroke="var(--cp-bg)" stroke-width="1" opacity=".5"/></g>
+ <g id="maple"><path d="M0 21L-3 6L-20 9L-13 0L-25-9L-10-8L-11-22L-2-12L3-30L9-12L19-20L16-5L30-5L17 4L23 13L7 11L0 21Z" fill="var(--cp-accent)"/></g>
+</defs>
 <path fill="var(--cp-bg)" d="M0 0H512V512H0Z"/>
-<path d="M80 174Q77 155 102 153L402 150Q429 151 432 177L431 403Q430 426 407 427L103 429Q79 429 79 403Z" fill="var(--cp-bg)" stroke="var(--cp-accent)" stroke-width="12"/>
-<path d="M202 150V119Q203 99 224 99H288Q309 99 309 119V149" fill="none" stroke="var(--cp-accent)" stroke-width="12" stroke-linecap="round"/>
-<path d="M144 164L145 417M369 163L368 416" stroke="var(--cp-border)" stroke-width="8" stroke-linecap="round"/>
-<path d="M256 342Q190 318 184 274Q180 244 209 233Q237 219 252 248Q264 209 298 215Q339 222 333 258Q326 305 256 342Z" fill="var(--cp-warning)" opacity=".85"/>
-<path d="M254 335Q257 295 277 252M256 315L225 271M258 301L307 269" fill="none" stroke="var(--cp-accent)" stroke-width="5" stroke-linecap="round"/>
-<path d="M256 341L252 360M109 430V446M402 430V446" fill="none" stroke="var(--cp-accent)" stroke-width="8" stroke-linecap="round"/>
-<path d="M338 92Q361 66 381 80Q375 106 348 109Z" fill="var(--cp-accent)" opacity=".65"/>
-<path d="M345 110L329 124" stroke="var(--cp-accent)" stroke-width="4" stroke-linecap="round"/>
+<path fill="url(#autumn-light)" d="M0 0H512V512H0Z"/>
+<circle cx="347" cy="136" r="53" fill="var(--cp-warning)" opacity=".2"/>
+<g fill="var(--cp-border)" opacity=".6">
+ <path d="M54 397V332H91V397M103 401V304H132V401M146 401V348H176V401M351 401V325H376V401M384 401V293H418V401M433 401V343H465V401"/>
+</g>
+<path d="M35 419Q157 389 257 411T480 409" fill="none" stroke="var(--cp-warning)" stroke-width="26" opacity=".22" stroke-linecap="round"/>
+<g fill="none" stroke="var(--cp-accent)" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M257 65L256 112" stroke-width="5"/>
+ <path d="M250 112L239 185L222 276Q210 343 178 421M263 112L275 185L291 276Q305 347 337 421" stroke-width="9"/>
+ <path d="M256 112L256 274M241 172H273M237 195H279M233 222H283M229 248H288M217 298H297M206 335H310M191 382H326" stroke-width="5"/>
+ <path d="M249 139L270 172M264 140L241 172M240 197L282 224M277 197L233 223M233 226L288 250M282 226L230 250M218 299L310 336M296 299L206 335M207 338L326 382M311 338L192 382M194 385L222 419M325 385L297 419" stroke-width="4"/>
+ <path d="M211 420Q256 341 302 420" stroke-width="7"/>
+</g>
+<path d="M233 174L277 174L281 190L231 190Z" fill="var(--cp-accent)"/>
+<path d="M220 261Q256 257 292 261L300 285Q256 290 214 284Z" fill="var(--cp-accent)"/>
+<path d="M230 267H240V276H230ZM247 266H257V276H247ZM265 266H275V276H265ZM281 267H289V276H281Z" fill="var(--cp-bg)"/>
+<path d="M242 179H250V185H242ZM258 179H267V185H258Z" fill="var(--cp-bg)"/>
+<path d="M247 128H266M243 151H270M233 211H279M224 239H288" stroke="var(--cp-bg)" stroke-width="6" opacity=".9"/>
+<g fill="none" stroke="var(--cp-text-muted)" stroke-linecap="round" opacity=".75">
+ <path d="M83 432Q93 366 80 282M88 384L52 340M86 365L122 316" stroke-width="4"/>
+ <path d="M426 432Q420 391 433 339M424 395L455 366" stroke-width="3"/>
+</g>
+<g opacity=".82">
+ <use href="#ginkgo" transform="translate(61 296) rotate(-25) scale(1.5)"/>
+ <use href="#ginkgo" transform="translate(95 268) rotate(14) scale(1.4)"/>
+ <use href="#ginkgo" transform="translate(123 302) rotate(34) scale(1.2)"/>
+ <use href="#ginkgo" transform="translate(47 332) rotate(-35) scale(1.3)"/>
+ <use href="#ginkgo" transform="translate(89 323) rotate(12) scale(1.6)"/>
+ <use href="#ginkgo" transform="translate(128 342) rotate(25) scale(1.2)"/>
+ <use href="#ginkgo" transform="translate(66 368) rotate(-20) scale(1.2)"/>
+ <use href="#ginkgo" transform="translate(108 372) rotate(15) scale(1.1)"/>
+</g>
+<g opacity=".73">
+ <use href="#maple" transform="translate(435 328) rotate(18) scale(.95)"/>
+ <use href="#maple" transform="translate(459 359) rotate(40) scale(1)"/>
+ <use href="#maple" transform="translate(407 359) rotate(-24) scale(.95)"/>
+ <use href="#maple" transform="translate(434 390) rotate(9) scale(.9)"/>
+</g>
+<g opacity=".7">
+ <use href="#ginkgo" transform="translate(368 83) rotate(27) scale(.6)"/>
+ <use href="#maple" transform="translate(146 150) rotate(-31) scale(.5)"/>
+ <use href="#ginkgo" transform="translate(179 453) rotate(69) scale(.43)"/>
+ <use href="#maple" transform="translate(351 442) rotate(52) scale(.42)"/>
+</g>
+<path d="M146 174Q158 181 156 192M368 104Q369 116 360 125" fill="none" stroke="var(--cp-accent)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 5" opacity=".35"/>
 </svg>

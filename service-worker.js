@@ -1,6 +1,6 @@
 const PREFIX="tokyo-autumn-guide-2026-";
-const CACHE=PREFIX+"13351ee20848";
-const ASSETS=["./","./index.html","./manifest.webmanifest","./icon-180.png","./icon-192.png","./icon-512.png"];
+const CACHE=PREFIX+"20261024-tower-v1";
+const ASSETS=["./","./index.html","./manifest.webmanifest","./icon-tower-180.png","./icon-tower-192.png","./icon-tower-512.png"];
 
 self.addEventListener("install",event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
