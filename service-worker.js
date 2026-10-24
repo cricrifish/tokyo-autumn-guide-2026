@@ -1,5 +1,5 @@
 const PREFIX="tokyo-autumn-guide-2026-";
-const CACHE=PREFIX+"20261024-tower-v1";
+const CACHE=PREFIX+"20261024-storybook-v1";
 const ASSETS=["./","./index.html","./manifest.webmanifest","./icon-tower-180.png","./icon-tower-192.png","./icon-tower-512.png"];
 
 self.addEventListener("install",event=>{

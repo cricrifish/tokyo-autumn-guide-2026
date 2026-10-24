@@ -224,6 +224,44 @@ h3{font-size:17px;margin-bottom:6px}
  .packing-status{font-size:8pt}.install-help,.install-status{display:none!important}
 }
 
+.sheet{background-image:none}
+.sheet::before{border-left:0}
+.sheet>.eyebrow{letter-spacing:.15em}
+.book-sprig{position:absolute;right:13px;top:56px;width:24px;height:86px;opacity:.48;pointer-events:none}
+.day-visual{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:18px;margin:20px 0 18px;align-items:start}
+.day-visual.solo{grid-template-columns:1fr}
+.storybook-panel{min-width:0;position:relative;overflow:hidden;height:245px;border-radius:48% 3% 42% 2% / 3% 46% 3% 45%;background:var(--cp-bg)}
+.storybook-scene{display:block;width:100%;height:100%}
+.day-visual .photo,.day:nth-child(even) .day-visual .photo{margin:0;padding:6px 6px 5px;border-color:var(--cp-border);transform:none;border-radius:2px;background:var(--cp-surface)}
+.day-visual .photo::before,.day-visual .photo::after{display:none}
+.day-visual .photo img{height:220px;border-radius:1px}
+.day-visual .photo figcaption{font-size:9px;line-height:1.5;margin:5px 3px 0}
+.day-visual.solo .storybook-panel{height:215px}
+.note{border:0;border-left:2px solid var(--cp-border);border-radius:0;padding-left:14px;background:var(--cp-bg)}
+.note b{font-weight:600}
+.route{border-radius:2px 12px 3px 9px;background:var(--cp-accent-soft)}
+.stop{border-bottom-style:dotted}
+.time{font-weight:600}
+.card{background:var(--cp-bg);border-radius:3px 16px 3px 10px}
+.packing-group{background:var(--cp-bg);border-style:solid;border-color:var(--cp-border)}
+.packing-group legend{font-weight:600}
+@media(max-width:650px){
+ .book-sprig{right:4px;top:46px;width:14px;height:65px}
+ .day-visual{grid-template-columns:1fr;gap:12px;margin:18px 0}
+ .storybook-panel,.day-visual.solo .storybook-panel{height:180px}
+ .day-visual .photo img{height:210px}
+ .day-visual .photo figcaption{font-size:10px}
+}
+@media print{
+ .book-sprig{right:5mm;top:17mm;width:5mm;height:18mm}
+ .day-visual{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:3mm;margin:2mm 0}
+ .storybook-panel,.day-visual.solo .storybook-panel{height:29mm}
+ .day-visual .photo{padding:1mm;margin:0}
+ .day-visual .photo img{height:23mm}
+ .day-visual .photo figcaption{font-size:6pt;line-height:1.35;margin:1mm 0 0}
+ .note{padding:3mm}
+}
+
 </style>
 </head>
 <body>
@@ -394,6 +432,78 @@ function art(kind,label){
  }
  return `<svg class="scene" role="img" aria-label="${esc(label)}" viewBox="0 0 880 310" xmlns="http://www.w3.org/2000/svg"><title>${esc(label)}</title>${shape}<g class="rose" opacity=".6"><path d="M30 60q18-16 28 0q-17 15-28 0ZM805 83q18-16 28 0q-17 15-28 0Z"/></g></svg>`;
 }
+function storybookScene(kind,label){
+ const id="storybook-"+kind;
+ let seed=Array.from(kind).reduce((sum,char)=>sum+char.charCodeAt(0),2026);
+ const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+ const leaves=(cx,cy,rx,ry,count,color,opacity)=>{
+  let paths="";
+  for(let n=0;n<count;n++){
+   const angle=random()*Math.PI*2,r=Math.sqrt(random());
+   const x=cx+Math.cos(angle)*rx*r,y=cy+Math.sin(angle)*ry*r;
+   const size=2+random()*5;
+   paths+=`M${x.toFixed(1)} ${y.toFixed(1)}q${(-size).toFixed(1)} ${(-size).toFixed(1)} ${(-size*.6).toFixed(1)} ${(-size*1.7).toFixed(1)}q${(size*1.6).toFixed(1)} ${(-size*.6).toFixed(1)} ${(size*1.7).toFixed(1)} ${(size*.6).toFixed(1)}q${(-size*.2).toFixed(1)} ${size.toFixed(1)} ${(-size*1.1).toFixed(1)} ${size.toFixed(1)}Z`;
+  }
+  return `<path d="${paths}" fill="${color}" opacity="${opacity}"/>`;
+ };
+ const forest=(left,right,count,near=false)=>{
+  let trees="";
+  for(let i=0;i<count;i++){
+   const x=left+(right-left)*(i+.15+random()*.65)/count;
+   const y=near?337:278+random()*28;
+   const top=20+random()*75;
+   const width=near?6+random()*7:2+random()*5;
+   const bend=(random()-.5)*26;
+   const color=near?"var(--cp-text)":"var(--cp-text-muted)";
+   trees+=`<path d="M${x} ${y}Q${x+bend} ${y*.5} ${x+bend*.4} ${top}" stroke="${color}" stroke-width="${width}" opacity="${near?.62:.22}" fill="none" stroke-linecap="round"/><path d="M${x+bend*.6} ${top+85}L${x-19} ${top+43}M${x+bend*.7} ${top+116}L${x+22} ${top+62}" stroke="${color}" stroke-width="${Math.max(1,width*.28)}" opacity="${near?.45:.18}" fill="none" stroke-linecap="round"/>`;
+   trees+=leaves(x+bend*.4,top+30,24+random()*25,30+random()*35,near?26:19,i%5===0?"var(--cp-accent)":"var(--cp-warning)",near?.65:.4);
+  }
+  return trees;
+ };
+ const traveler=(x,y,scale=1)=>`<g transform="translate(${x} ${y}) scale(${scale})"><ellipse cx="0" cy="3" rx="11" ry="3" fill="var(--cp-text)" opacity=".12"/><path d="M-4-13L-5 0M4-13L6 0" stroke="var(--cp-text)" stroke-width="3.5" stroke-linecap="round"/><path d="M-7-30Q0-34 7-30L9-12Q0-8-9-12Z" fill="var(--cp-accent)"/><path d="M-7-27L-11-16M7-27L11-17" fill="none" stroke="var(--cp-accent)" stroke-width="3" stroke-linecap="round"/><circle cx="0" cy="-38" r="6" fill="var(--cp-warning)" opacity=".65"/><path d="M-6-40Q0-48 6-40" fill="var(--cp-text)" opacity=".7"/><path d="M-4-31L6-26" stroke="var(--cp-bg-elevated)" stroke-width="3" stroke-linecap="round"/><path d="M5-27L11-24L10-14L5-14Z" fill="var(--cp-warning)"/></g>`;
+ const strokes=Array.from({length:155},()=>{
+  const x=random()*680,y=245+random()*95,h=2+random()*13;
+  return `<path d="M${x.toFixed(1)} ${y.toFixed(1)}l${((random()-.5)*5).toFixed(1)} ${(-h).toFixed(1)}" stroke="${random()>.45?"var(--cp-warning)":"var(--cp-text-muted)"}" stroke-width=".7" opacity=".2"/>`;
+ }).join("");
+ let scenery="";
+ if(kind==="city"){
+  scenery=`<g fill="var(--cp-text-muted)" opacity=".13"><path d="M270 270V132H303V270M313 270V158H354V270M424 270V109H458V270M469 270V173H506V270"/></g><g stroke="var(--cp-accent)" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".75"><path d="M367 260L395 111L429 260M395 111V83M385 160H406M379 191H412M373 226H421M381 191L417 225M409 191L376 225M385 260Q397 226 410 260" stroke-width="2.7"/></g>${forest(20,178,7,true)}${forest(548,674,7,true)}<path d="M231 340Q259 298 354 273L429 273Q344 303 336 340" fill="var(--cp-bg-elevated)" opacity=".7"/>${traveler(326,308,.9)}`;
+ }else if(kind==="fuji"){
+  scenery=`<path d="M188 214Q269 165 345 85Q400 141 481 209Z" fill="var(--cp-text-muted)" opacity=".13"/><path d="M310 121L345 85L380 124L360 117L347 126L330 115Z" fill="var(--cp-bg-elevated)" opacity=".9"/>${forest(18,221,13,true)}${forest(485,678,12,true)}<path d="M227 340Q268 280 304 261Q335 235 373 248Q333 270 330 296Q325 320 327 340" fill="var(--cp-bg-elevated)" opacity=".65"/><g fill="none" stroke="var(--cp-accent)" stroke-linecap="round" opacity=".75"><path d="M299 250L299 195M372 250L372 195M289 187Q336 197 381 187M295 210H375" stroke-width="5"/></g>${traveler(300,306,.85)}`;
+ }else if(kind==="market"){
+  scenery=`${forest(33,271,12,true)}${forest(445,671,10,true)}<g opacity=".84"><path d="M272 250V180H320V132H365V180H414V250Z" fill="var(--cp-accent)" opacity=".45"/><path d="M272 180H320V132H365V180H414M272 180V250M414 180V250M320 132V250M365 132V250M332 250V219Q342 200 353 219V250M286 196V230M301 196V230M383 196V230M399 196V230" fill="none" stroke="var(--cp-text-muted)" stroke-width="2"/><circle cx="343" cy="165" r="11" fill="var(--cp-bg-elevated)"/><path d="M343 157V165L349 169M324 132V122M336 132V122M350 132V122M361 132V122" fill="none" stroke="var(--cp-text-muted)" stroke-width="1.5"/></g><path d="M254 340L317 251H369L419 340Z" fill="var(--cp-bg-elevated)" opacity=".58"/>${traveler(355,299,.9)}`;
+ }else if(kind==="park"){
+  scenery=`${forest(2,203,11,true)}${forest(509,682,10,true)}<path d="M164 269Q257 247 377 260T664 276L680 340H116Q218 311 164 269Z" fill="var(--cp-link)" opacity=".24"/><path d="M230 286Q311 247 404 286M246 278V302M389 277V300" fill="none" stroke="var(--cp-text-muted)" stroke-width="3" stroke-linecap="round" opacity=".6"/><g stroke="var(--cp-bg-elevated)" opacity=".55" stroke-linecap="round"><path d="M213 313H279M345 322H402M437 296H506M544 316H609"/></g>${leaves(390,125,100,48,80,"var(--cp-warning)",.36)}${traveler(191,305,.9)}`;
+ }else if(kind==="fireworks"){
+  scenery=`${forest(15,166,8,true)}${forest(528,675,8,true)}<path d="M134 272Q269 255 394 267T680 272V340H145Z" fill="var(--cp-link)" opacity=".23"/><path d="M137 309Q230 275 291 278Q235 301 215 340H86Z" fill="var(--cp-warning)" opacity=".33"/><path d="M295 258Q370 209 450 253L477 267H283Z" fill="var(--cp-text-muted)" opacity=".27"/><path d="M386 229V193M380 193H392V185H380ZM376 184H396" stroke="var(--cp-text-muted)" stroke-width="2" fill="none" opacity=".7"/><g stroke="var(--cp-bg-elevated)" opacity=".6"><path d="M301 302H374M405 287H461M477 319H548"/></g><g stroke="var(--cp-accent)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"><path d="M345 83V65M361 90L374 77M368 108H386M361 125L374 138M345 132V150M328 125L315 138M321 108H303M328 90L315 77"/></g><g stroke="var(--cp-warning)" stroke-width="1.5" stroke-linecap="round" opacity=".75"><path d="M445 124V112M457 133L467 126M457 147L467 154M445 153V165M433 147L423 154M433 133L423 126"/></g>${traveler(231,309,.9)}`;
+ }else{
+  scenery=`${forest(0,188,9,true)}${forest(515,680,8,true)}<g opacity=".9"><path d="M243 263V150Q315 143 403 151V263Z" fill="var(--cp-bg-elevated)"/><path d="M235 152Q322 138 413 151L409 163H238Z" fill="var(--cp-accent)" opacity=".58"/><path d="M257 174H386V245H257Z" fill="var(--cp-warning)" opacity=".23"/><path d="M322 174V246M257 210H385M242 264H408" stroke="var(--cp-text-muted)" stroke-width="2" fill="none"/><path d="M272 229H293V240H272ZM345 228H366V240H345Z" fill="var(--cp-accent)" opacity=".5"/></g><path d="M213 340Q255 288 287 265H339Q296 299 286 340" fill="var(--cp-bg-elevated)" opacity=".7"/>${traveler(290,303,.9)}`;
+ }
+ return `<svg class="storybook-scene" role="img" aria-label="${esc(label)}" viewBox="0 0 680 340" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><title>${esc(label)}</title><defs><linearGradient id="${id}-glow" x1=".45" y1="0" x2=".65" y2="1"><stop stop-color="var(--cp-warning)" stop-opacity=".13"/><stop offset=".6" stop-color="var(--cp-warning)" stop-opacity=".48"/><stop offset="1" stop-color="var(--cp-warning)" stop-opacity=".2"/></linearGradient><filter id="${id}-brush"><feTurbulence type="fractalNoise" baseFrequency=".035 .16" numOctaves="2" seed="11" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.7"/></filter></defs><path fill="var(--cp-bg-elevated)" d="M0 0H680V340H0Z"/><path fill="url(#${id}-glow)" d="M0 0H680V340H0Z"/><circle cx="401" cy="140" r="91" fill="var(--cp-bg-elevated)" opacity=".39"/><g filter="url(#${id}-brush)">${forest(12,674,kind==="fuji"||kind==="park"?23:11)}<path d="M0 285Q223 245 395 273T680 269V340H0Z" fill="var(--cp-warning)" opacity=".15"/>${scenery}</g>${strokes}</svg>`;
+}
+function storybookVisual(day,index){
+ const photoKey={fuji:"takao",market:"todai",park:"showa",fireworks:"gaien"}[day.art];
+ const elements={
+  city:"東京鐵塔與城市街景",
+  fuji:"高尾山、藥王院參道與遠望富士山",
+  market:"東京大學安田講堂與銀杏",
+  park:"昭和記念公園銀杏、庭園與水景",
+  fireworks:"神宮外苑秋色、江之島海景與熱海煙火想像（場次待確認）",
+  cafe:"中目黑街角咖啡與麵包"
+ };
+ const label=`第 ${index+1} 天原創繪本情境：${elements[day.art]}；非景點實景寫生`;
+ return `<div class="day-visual${photoKey?"":" solo"}"><div class="storybook-panel">${storybookScene(day.art,label)}</div>${photoKey?photo(photoKey):""}</div>`;
+}
+function decorateBookPages(){
+ for(const sheet of document.querySelectorAll(".sheet")){
+  const decoration=document.createElement("div");
+  decoration.className="book-sprig";
+  decoration.setAttribute("aria-hidden","true");
+  decoration.innerHTML='<svg viewBox="0 0 24 86" xmlns="http://www.w3.org/2000/svg"><path d="M9 83Q20 49 11 7" stroke="var(--cp-text-muted)" stroke-width="1" fill="none"/><g fill="var(--cp-warning)"><path d="M12 19Q-1 11 4 4Q15 3 12 19ZM14 37Q23 22 24 31Q23 41 14 37ZM14 54Q-1 45 4 38Q17 39 14 54ZM12 69Q25 54 24 65Q22 74 12 69Z"/></g><path d="M11 82Q1 71 4 65Q16 65 11 82Z" fill="var(--cp-accent)" opacity=".65"/></svg>';
+  sheet.append(decoration);
+ }
+}
+
 function photo(key){
  const p=photos[key];
  if(!p)throw new Error(`缺少照片資料：${key}`);
@@ -404,7 +514,7 @@ document.getElementById("days").innerHTML=days.map((d,i)=>`
  <section class="sheet day" data-label="${d.date} ${d.week}" id="day-${i+1}">
   <div class="eyebrow">Day 0${i+1} / ${d.date}（${d.week}） · ${esc(d.en)}</div>
   <h2 class="serif">${esc(d.title)}</h2><p class="subtitle">${esc(d.intro)}</p>
-  ${{fuji:"takao",market:"todai",park:"showa",fireworks:"gaien"}[d.art]?photo({fuji:"takao",market:"todai",park:"showa",fireworks:"gaien"}[d.art]):art(d.art,`原創情境插畫：${d.tag}`)}
+  ${storybookVisual(d,i)}
   <div class="small">${esc(d.tag)} · 以下時間皆為日本時間（航班另註）</div>
   <div class="route">${esc(d.route)}</div>
   <div class="timeline">${d.stops.map(s=>`<div class="stop"><div class="time">${esc(s[0])}</div><div><h3>${esc(s[1])}</h3><p>${esc(s[2])}</p></div></div>`).join("")}</div>
@@ -524,6 +634,7 @@ progress();
  }
 })();
 
+decorateBookPages();
 const sheets=Array.from(document.querySelectorAll(".sheet"));
 const tabs=document.getElementById("tabs");
 tabs.innerHTML=sheets.map((s,i)=>`<button type="button" class="tab" data-index="${i}" aria-pressed="${i===0}" aria-controls="${s.id}">${esc(s.dataset.label)}</button>`).join("");
