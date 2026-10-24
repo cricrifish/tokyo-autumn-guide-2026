@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<style>
+:root{--cp-bg:#f7f4ef;--cp-text:#242424;--cp-accent:#b11f4b;--cp-warning:#f59e0b;--cp-border:#dedede}
+</style>
+<path fill="var(--cp-bg)" d="M0 0H512V512H0Z"/>
+<path d="M80 174Q77 155 102 153L402 150Q429 151 432 177L431 403Q430 426 407 427L103 429Q79 429 79 403Z" fill="var(--cp-bg)" stroke="var(--cp-accent)" stroke-width="12"/>
+<path d="M202 150V119Q203 99 224 99H288Q309 99 309 119V149" fill="none" stroke="var(--cp-accent)" stroke-width="12" stroke-linecap="round"/>
+<path d="M144 164L145 417M369 163L368 416" stroke="var(--cp-border)" stroke-width="8" stroke-linecap="round"/>
+<path d="M256 342Q190 318 184 274Q180 244 209 233Q237 219 252 248Q264 209 298 215Q339 222 333 258Q326 305 256 342Z" fill="var(--cp-warning)" opacity=".85"/>
+<path d="M254 335Q257 295 277 252M256 315L225 271M258 301L307 269" fill="none" stroke="var(--cp-accent)" stroke-width="5" stroke-linecap="round"/>
+<path d="M256 341L252 360M109 430V446M402 430V446" fill="none" stroke="var(--cp-accent)" stroke-width="8" stroke-linecap="round"/>
+<path d="M338 92Q361 66 381 80Q375 106 348 109Z" fill="var(--cp-accent)" opacity=".65"/>
+<path d="M345 110L329 124" stroke="var(--cp-accent)" stroke-width="4" stroke-linecap="round"/>
+</svg>
